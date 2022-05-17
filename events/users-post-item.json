@@ -1,0 +1,7 @@
+{
+    "httpMethod": "POST",
+    "path": "users",
+    "body": {
+        "usr_name": "new"
+    }
+}

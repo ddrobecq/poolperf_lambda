@@ -1,0 +1,158 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  API & Lambda to operate function for PoolPerf application
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+- AWS::Serverless-2016-10-31
+
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,PUT,OPTIONS'"
+      AllowHeaders: "'content-type'"
+      AllowOrigin: "'*'"
+  Function:
+      Environment:
+        Variables:
+          DBHOST: production.cwg1atckgb7c.eu-west-3.rds.amazonaws.com
+          DBUSER: billard_user
+          DBPWD: '{{resolve:secretsmanager:Billard/DBPWD:SecretString:DBPWD}}'
+          DBNAME: Billard_db
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+
+  usersgetOne:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/usersAPI.getOne
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP GET method to get one user by id.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: users/{id}
+            Method: GET
+
+  usersgetallGames:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/usersAPI.getallGames
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP GET method to get all games for a fiven one user.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: users/{id}/games
+            Method: GET
+
+  usersgetStats:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/usersAPI.getStats
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP GET method to get all stats for a fiven one user.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: users/{id}/stats
+            Method: GET
+
+  usersupdate:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/usersAPI.update
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP PUT method to update one user by id.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: users/{id}
+            Method: PUT
+
+  userscreate:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/usersAPI.create
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP POST method to create one user.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: users
+            Method: POST
+
+  usersgetAll:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/usersAPI.getAll
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP GET method to get all users.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: users
+            Method: GET
+
+  gamescreate:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/games/gamesAPI.create
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: HTTP POST method to create one game score.
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: games
+            Method: POST
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

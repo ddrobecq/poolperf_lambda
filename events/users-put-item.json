@@ -1,0 +1,11 @@
+{
+    "httpMethod": "PUT",
+    "pathParameters": {
+        "id": "1"
+    },
+    "path": "users/{id}",
+    "body": {
+        "usr_id": "1",
+        "usr_name": "name1"
+    }
+}

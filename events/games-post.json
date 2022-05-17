@@ -1,0 +1,10 @@
+{
+    "httpMethod": "POST",
+    "path": "games",
+    "body": {
+        "usr_id": "1",
+        "gam_shot": "10",
+        "gam_pocket": "6",
+        "gam_foul": "5"
+    }
+}
