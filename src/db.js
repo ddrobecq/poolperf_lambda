@@ -1,6 +1,11 @@
 const mysql = require('mysql');
 
 /* EXECUTE SQL QUERY WITH A PROMISE */
+exports.escape = function (str) {
+    return mysql.escape (str);
+}
+
+/* EXECUTE SQL QUERY WITH A PROMISE */
 exports.execSQL = function (strreq) {
     const con = mysql.createConnection({
         host: process.env.DBHOST,
@@ -19,3 +24,4 @@ exports.execSQL = function (strreq) {
     });
     return p;
 };
+

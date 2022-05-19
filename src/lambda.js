@@ -77,7 +77,7 @@ exports.invoke = async function (request, context, callback, dbfunc){
         context.callbackWaitsForEmptyEventLoop = false;
         if (request.pathParameters != null) {
             if ('pathParameters' in request ){
-                id = request.pathParameters.id;
+                id = Number (request.pathParameters.id);
             }; 
         };
         await dbfunc (id, payLoad).then (function (results) {

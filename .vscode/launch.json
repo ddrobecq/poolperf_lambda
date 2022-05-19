@@ -1,5 +1,6 @@
 {
     "configurations": [
+
         {
             "type": "aws-sam",
             "request": "direct-invoke",
@@ -21,6 +22,36 @@
                         "body": {
                             "usr_id": "1",
                             "usr_name": "name1"
+                        }
+                    }
+                },
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "lambda.games",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "${workspaceFolder}/",
+                "lambdaHandler": "src/games/gamesAPI.create"
+            },
+            "lambda": {
+                "runtime": "nodejs14.x",
+                "payload": {
+                    "json": {
+                        "httpMethod": "POST",
+                        "pathParameters": {},
+                        "path": "games",
+                        "body": {
+                            "gameType": "Black",
+                            "player":{
+                                "playerId": "1",
+                                "nbShot": "a",
+                                "nbPocket": 0,
+                                "nbFoul": 0
+                            }      
                         }
                     }
                 },
