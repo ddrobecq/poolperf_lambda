@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "production.cwg1atckgb7c.eu-west-3.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Billard",
+            "database": "Billard_db",
+            "username": "billard_user"
+        }
+    ]
+}

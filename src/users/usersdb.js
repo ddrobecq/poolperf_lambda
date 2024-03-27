@@ -2,13 +2,19 @@ const db = require ("../db.js");
 
 /* GET ONE USER BY ID */
 function getOne (id, body){
-    let strreq = 'SELECT * FROM user WHERE usr_id = ' + id;
+    let strreq = 'SELECT usr_id, usr_name FROM user WHERE usr_id = ' + id;
+    return (db.execSQL(strreq));
+};
+
+/* GET ONE USER'AVATAR BY ID */
+function getImage (id, body){
+    let strreq = 'SELECT usr_id, to_base64(usr_avatar) as usr_avatar FROM user WHERE usr_id = ' + id;
     return (db.execSQL(strreq));
 };
 
 /* GET ALL USERS */
 function getAll (id, body){
-    let strreq = "SELECT * FROM user";
+    let strreq = "SELECT usr_id, usr_name FROM user";
     return (db.execSQL(strreq));
 };
 
@@ -47,6 +53,7 @@ const getStats = function (id, body) {
 
 module.exports ={
     getOne,
+    getImage,
     getAll,
     update,
     create,

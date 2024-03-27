@@ -56,6 +56,8 @@ function strBuildResponse (statusCode, responseBody){
     };
     return (response);
 };
+exports.strBuildResponse = strBuildResponse;
+
 
 /* PARSE body IF NECESSARY */
 function objBody (body){

@@ -19,6 +19,11 @@ Globals:
       AllowHeaders: "'content-type'"
       AllowOrigin: "'*'"
   Function:
+      MemorySize: 128
+      Timeout: 100
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
       Environment:
         Variables:
           DBHOST: production.cwg1atckgb7c.eu-west-3.rds.amazonaws.com
@@ -32,126 +37,52 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-
-  usersgetOne:
+  main:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/users/usersAPI.getOne
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP GET method to get one user by id.
+      Handler: src/indexAPI.routes
+      Description: Pool Perf API.
       Events:
-        Api:
+        usersgetOne:
           Type: Api
           Properties:
-            Path: users/{id}
+            Path: /users/{id}
             Method: GET
-
-  usersgetallGames:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/users/usersAPI.getallGames
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP GET method to get all games for a fiven one user.
-      Events:
-        Api:
+        usersgetImge:
           Type: Api
           Properties:
-            Path: users/{id}/games
+            Path: /users/{id}/image
             Method: GET
-
-  usersgetStats:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/users/usersAPI.getStats
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP GET method to get all stats for a fiven one user.
-      Events:
-        Api:
+        usersgetallGames:
           Type: Api
           Properties:
-            Path: users/{id}/stats
+            Path: /users/{id}/games
             Method: GET
-
-  usersupdate:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/users/usersAPI.update
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP PUT method to update one user by id.
-      Events:
-        Api:
+        usersgetStats:
           Type: Api
           Properties:
-            Path: users/{id}
+            Path: /users/{id}/stats
+            Method: GET
+        usersupdate:
+          Type: Api
+          Properties:
+            Path: /users/{id}
             Method: PUT
-
-  userscreate:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/users/usersAPI.create
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP POST method to create one user.
-      Events:
-        Api:
+        userscreate:
           Type: Api
           Properties:
-            Path: users
+            Path: /users
             Method: POST
-
-  usersgetAll:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/users/usersAPI.getAll
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP GET method to get all users.
-      Events:
-        Api:
+        usersgetAll:
           Type: Api
           Properties:
-            Path: users
+            Path: /users
             Method: GET
-
-  gamescreate:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/games/gamesAPI.create
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: HTTP POST method to create one game score.
-      Events:
-        Api:
+        gamescreate:
           Type: Api
           Properties:
-            Path: games
+            Path: /games
             Method: POST
-
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"
