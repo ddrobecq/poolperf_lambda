@@ -4,11 +4,12 @@ var routeUsers = require ("./users/usersAPI.js");
 
 exports.routes = async (event, context, callback) => {
   try {    
-    switch (event.resource) {
-      case '/games':
+    const path = event.resource.split('/');
+    switch (path[1]) {
+      case 'games':
         await routeGames.create (event, context, callback);
         break;
-      case '/users':
+      case 'users':
         await routeUsers.users (event, context, callback);
         break;
       default:
