@@ -1,15 +1,12 @@
 {
     "name": "poolperf-api",
     "description": "lambda functions to handle poolperf-api",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "private": true,
     "dependencies": {
-        "aws-sdk": "^2.799.0",
-        "dotenv": "^16.0.0",
-        "mysql": "^2.18.1"
-    },
-    "devDependencies": {
-        "jest": "^29.0.0"
+        "aws-sdk": "^2.799",
+        "dotenv": "^16.0",
+        "mysql": "^2.18"
     },
     "scripts": {
         "test": "jest"
