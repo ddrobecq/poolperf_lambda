@@ -16,11 +16,11 @@ Globals:
   Api:
     Cors:
       AllowMethods: "'GET,POST,PUT,OPTIONS'"
-      AllowHeaders: "'content-type'"
+      AllowHeaders: "'content-type, x-api-key'"
       AllowOrigin: "'*'"
   Function:
       MemorySize: 128
-      Timeout: 100
+      Timeout: 50
       Runtime: nodejs18.x
       Architectures:
         - x86_64
